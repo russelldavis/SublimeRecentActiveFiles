@@ -26,13 +26,13 @@ class RecentActiveFilesCommand(sublime_plugin.WindowCommand):
             self.unshift(file_name)
         else:
             items = [[os.path.basename(f), self.path_form_project(f)] for f in self.recent_active_files]
+            active_file = self.recent_active_files[0]
 
             def on_done(index):
                 if index >= 0:
-                    self.window.open_file(self.recent_active_files[index])
+                    self.window.open_file(self.recent_active_files[0])
                 else:
-                    if len(self.recent_active_files) > 0:
-                        self.window.open_file(self.recent_active_files[0])
+                    self.window.open_file(active_file)
 
             def on_highlight(index):
                 if index >= 0:
