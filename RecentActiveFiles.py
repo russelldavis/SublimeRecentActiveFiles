@@ -16,7 +16,7 @@ class RecentActiveFilesCommand(sublime_plugin.WindowCommand):
             self.recent_active_files.remove(file_name)
         self.recent_active_files.insert(0, file_name)
 
-    def path_form_project(self, path):
+    def folders_relative_path(self, path):
         for folder in self.window.folders():
             path = path.replace(folder + '/', '', 1)
         return path
@@ -25,7 +25,7 @@ class RecentActiveFilesCommand(sublime_plugin.WindowCommand):
         if file_name:
             self.unshift(file_name)
         else:
-            items = [[os.path.basename(f), self.path_form_project(f)] for f in self.recent_active_files]
+            items = [[os.path.basename(f), self.folders_relative_path(f)] for f in self.recent_active_files]
             active_file = self.recent_active_files[0]
 
             def on_done(index):
